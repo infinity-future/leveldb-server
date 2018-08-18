@@ -24,7 +24,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 def main(port, data):
     # Create server
     server = SimpleXMLRPCServer(
-        ('localhost', port),
+        ('0.0.0.0', port),
         requestHandler=RequestHandler,
         use_builtin_types=True,
         allow_none=True
