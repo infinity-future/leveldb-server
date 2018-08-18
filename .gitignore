@@ -1,2 +1,4 @@
 .vscode
 *.py[cod]
+dist
+*.egg-info
