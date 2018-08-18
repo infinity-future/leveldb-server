@@ -9,4 +9,4 @@ RUN pip3 install plyvel
 
 WORKDIR /leveldbs
 
-
+ENTRYPOINT [ "python3", "server.py" ]

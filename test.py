@@ -1,5 +1,5 @@
 
-from client import LevelDBClient
+from leveldbs import LevelDBClient
 
 c = LevelDBClient('http://localhost:11300')
 
