@@ -1,12 +1,20 @@
 import xmlrpc.client
 
-s = xmlrpc.client.ServerProxy(
-    'http://localhost:11300', use_builtin_types=True,
-    allow_none=True
-)
+class LevelDBClient(object):
 
-s.put(b'a', b'b')
-print(s.get(b'a'))
+    def __init__(self, server_addr):
+        self.s = xmlrpc.client.ServerProxy(
+            server_addr, use_builtin_types=True,
+            allow_none=True
+        )
+    
+    def put(self, k, v):
+        return self.s.put(k, v)
+    
+    def get(self, k):
+        return self.s.get(k)
+    
+    def delete(self, k):
+        return self.s.delete(k)
 
-# Print list of available methods
 
