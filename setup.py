@@ -13,7 +13,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'leveldbs',
-    version = '0.0.3',
+    version = '0.0.4',
     keywords = ('pip', 'leveldb'),
     description = 'time and path tool',
     long_description = 'time and path tool',
