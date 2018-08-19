@@ -1,6 +1,7 @@
 #!/bin/bash
 # run after commit
-# automatic run npm version patch
+# copy this file to .git/hooks
+# automatic run version patch
 
 # echo `git log -1 --pretty==%B`
 (git log -1 --pretty=%B | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$") && echo "match version, do nothing" || ./scripts/version_patch.sh
