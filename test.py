@@ -1,8 +1,7 @@
 
 from leveldbs import LevelDBClient
 
-c = LevelDBClient('http://localhost:11300')
-
+c = LevelDBClient('localhost', 11300)
 
 c.put(b'a', b'b')
 print(c.get(b'a'))
