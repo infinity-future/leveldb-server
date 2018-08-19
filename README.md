@@ -1,6 +1,8 @@
 
 # LevelDB-Server
 
+![travis-ci](https://travis-ci.org/infinityfuture/leveldb-server.svg?branch=master)
+
 With leveldb(plyvel), pyzmq
 
 ## Run server with docker
