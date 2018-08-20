@@ -1,14 +1,15 @@
 language: python
 python:
 - '3.5'
+install:
+  - pip install -r requirements.txt
 sudo: required
 services:
   - docker
 script:
   - ./scripts/docker_login.sh && ./scripts/docker_build.sh
   - ./scripts/docker_run.sh
-  - python3 -m leveldbs.test.zmq_client
-  - ./scripts/docker_push.sh
+  - python3 -m leveldbs.test.zmq_client && ./scripts/docker_push.sh
 deploy:
   provider: pypi
   user: infinityfuture
