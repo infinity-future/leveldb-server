@@ -1,0 +1,1 @@
+sudo docker run -d -p 11300:11300 --volume=/tmp/leveldb:/leveldb --name=leveldbs infinityfuture/leveldb-server

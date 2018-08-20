@@ -9,18 +9,18 @@ PORT = 11300
 THREADING_NUMBER = 5
 DATA = '/leveldb'
 
-class LevelDB:
+class LevelDB(object):
     def __init__(self, data):
         self.db = plyvel.DB(data, create_if_missing=True)
     
-    def put(self, k, v):
-        return self.db.put(k, v)
+    def put(self, k, v, sync=False):
+        return self.db.put(k, v, sync=sync)
     
-    def get(self, k):
-        return self.db.get(k)
+    def get(self, k, default=None):
+        return self.db.get(k, default=default)
     
-    def delete(self, k):
-        return self.db.delete(k)
+    def delete(self, k, sync=False):
+        return self.db.delete(k, sync=sync)
 
 def worker_routine(worker_url, database, context=None):
     """Worker routine"""
@@ -30,15 +30,18 @@ def worker_routine(worker_url, database, context=None):
     socket.connect(worker_url)
     while True:
         string = socket.recv()
-        method, key, value = pickle.loads(string)
-        print('Do', method, key[:20])
+        method, key, value, sync = pickle.loads(string)
+        print('Do', method, sync, key[:100])
         try:
             if method == 'get':
-                socket.send(pickle.dumps((None, database.get(key))))
+                r = (None, database.get(key, value))
+                socket.send(pickle.dumps(r))
             elif method == 'put':
-                socket.send(pickle.dumps((None, database.put(key, value))))
+                r = (None, database.put(key, value, sync=sync))
+                socket.send(pickle.dumps(r))
             elif method == 'delete':
-                socket.send(pickle.dumps((None, database.delete(key))))
+                r = (None, database.delete(key, sync=sync))
+                socket.send(pickle.dumps(r))
             else:
                 socket.send(pickle.dumps('Error: invalid method', None))
         except Exception as e:
