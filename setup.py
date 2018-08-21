@@ -8,12 +8,17 @@
 # Created Time: 2018-08-09 02:00:00
 #############################################
 
-
+import os
 from setuptools import setup, find_packages
+
+version = os.path.join(
+    os.path.realpath(os.path.dirname(__file__)),
+    'version.txt'
+)
 
 setup(
     name = 'leveldbs',
-    version = open('version.txt', 'r').read().strip(),
+    version = open(version, 'r').read().strip(),
     keywords = ('pip', 'leveldb'),
     description = 'time and path tool',
     long_description = 'time and path tool',
