@@ -52,9 +52,9 @@ def worker_routine(worker_url, database, context=None):
                 r = (None, database.put_batch(key))
                 socket.send(pickle.dumps(r))
             else:
-                socket.send(pickle.dumps('Error: invalid method', None))
+                socket.send(pickle.dumps(('Error: invalid method', None)))
         except Exception as e:
-            socket.send(pickle.dumps('Error: {}'.format(str(e)), None))
+            socket.send(pickle.dumps(('Error: {}'.format(str(e)), None)))
 
 
 def main(port, data, threading_number):

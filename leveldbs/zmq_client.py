@@ -21,8 +21,8 @@ class LevelDBClient(object):
         return data
     
     def _check(self, k):
-        if isinstance(k, bytes):
-            return k
+        # if isinstance(k, bytes):
+        #     return k
         return pickle.dumps(k)
     
     def put(self, k, v, sync=False):
