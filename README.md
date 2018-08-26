@@ -21,6 +21,12 @@ Data persistent to `/tmp/leveldb`
 sudo docker run -it --rm -p 11300:11300 --volume=/tmp/leveldb:/leveldb --name=leveldbs infinityfuture/leveldb-server
 ```
 
+Run server persistent to `/tmp/leveldb`
+
+```sh
+sudo docker run --restart=always -d -p 11300:11300 --volume=/tmp/leveldb:/leveldb --name=leveldbs infinityfuture/leveldb-server
+```
+
 ## Install client from pip
 
 ```sh
