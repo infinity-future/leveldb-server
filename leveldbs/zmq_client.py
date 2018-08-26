@@ -32,8 +32,20 @@ class LevelDBClient(object):
     
     def get(self, k, default=None):
         k = self._check(k)
-        return self._execute('get', k, value=default)
+        v = self._execute('get', k, value=default)
+        try:
+            v = pickle.loads(v)
+        except:
+            pass
+        return v
     
     def delete(self, k, sync=False):
         k = self._check(k)
         return self._execute('delete', k, sync=sync)
+    
+    def put_batch(self, values):
+        values_valid = [
+            (self._check(k), self._check(v))
+            for k, v in values
+        ]
+        return self._execute('put_batch', values_valid)

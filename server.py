@@ -16,6 +16,12 @@ class LevelDB:
     
     def delete(self, k):
         return self.db.delete(k)
+    
+    def put_batch(self, arr):
+        with self.db.write_batch() as b:
+            for k, v in arr:
+                b.put(k, v)
+        return None
 
 # Restrict to a particular path.
 class RequestHandler(SimpleXMLRPCRequestHandler):

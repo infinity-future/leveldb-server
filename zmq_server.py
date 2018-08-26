@@ -21,6 +21,12 @@ class LevelDB(object):
     
     def delete(self, k, sync=False):
         return self.db.delete(k, sync=sync)
+    
+    def put_batch(self, arr):
+        with self.db.write_batch() as b:
+            for k, v in arr:
+                b.put(k, v)
+        return None
 
 def worker_routine(worker_url, database, context=None):
     """Worker routine"""
@@ -41,6 +47,9 @@ def worker_routine(worker_url, database, context=None):
                 socket.send(pickle.dumps(r))
             elif method == 'delete':
                 r = (None, database.delete(key, sync=sync))
+                socket.send(pickle.dumps(r))
+            elif method == 'put_batch':
+                r = (None, database.put_batch(key))
                 socket.send(pickle.dumps(r))
             else:
                 socket.send(pickle.dumps('Error: invalid method', None))
