@@ -15,7 +15,13 @@ class LevelDBClient(object):
         self.socket.send(pickle.dumps(p))
         received = self.socket.recv()
         r = pickle.loads(received)
-        error, data = r
+        try:
+            error, data = r
+        except KeyboardInterrupt as e:
+            raise e
+        except Exception as e:
+            print(r)
+            raise e
         if error:
             raise Exception(error)
         return data
